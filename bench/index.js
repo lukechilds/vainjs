@@ -1,7 +1,7 @@
 const Vain = require('..');
 const prettyMs = require('pretty-ms');
 
-const prefix = 'Luke';
+const prefix = 'BTC';
 console.log();
 console.log(`Searching for the prefix "${prefix}"...`);
 
