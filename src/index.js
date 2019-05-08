@@ -28,13 +28,13 @@ class Vain extends Emitter {
 			}
 
 			const now = Date.now();
-			if((now - lastUpdate) > ONE_SECOND) {
+			if ((now - lastUpdate) > ONE_SECOND) {
 				const duration = now - startTime;
 				const trysPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
 				this.emit('update', {
 					duration,
 					attempts,
-					trysPerSecond,
+					trysPerSecond
 				});
 				lastUpdate = now;
 			}
