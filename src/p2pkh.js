@@ -43,6 +43,7 @@ const p2pkh = prefix => {
 
 		emitter.emit('found', {
 			duration,
+			attempts,
 			addressesPerSecond,
 			address,
 			wif: keyPair.toWIF()
