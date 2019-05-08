@@ -7,7 +7,12 @@ console.log(`Searching for the prefix "${prefix}"...`);
 
 const vain = new Vain({prefix});
 
-vain.on('update', data => console.log('Update:', data));
+vain.on('update', data => {
+  const duration = prettyMs(data.duration);
+  const {attempts} = data;
+  const speed = `${data.addressesPerSecond} addr/s`;
+  console.log(`Duration: ${duration} | Attempts: ${attempts} | Speed: ${speed}`);
+});
 
 const result = vain.start();
 console.log();
