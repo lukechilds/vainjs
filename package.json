@@ -32,5 +32,7 @@
     "nyc": "^13.1.0",
     "xo": "^0.23.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "bitcoinjs-lib": "^5.0.3"
+  }
 }
