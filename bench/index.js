@@ -1,6 +1,16 @@
 const Vain = require('..');
+const prettyMs = require('pretty-ms');
 
-const vain = new Vain({prefix: 'BTC'});
+const prefix = 'Luke';
+console.log();
+console.log(`Searching for the prefix "${prefix}"...`);
+
+const vain = new Vain({prefix});
 const result = vain.start();
 
-console.log(result);
+console.log();
+console.log(`Address: ${result.address}`);
+console.log(`WIF: ${result.wif}`);
+console.log();
+console.log(`Found in ${prettyMs(result.duration)}`);
+console.log(`Trys per second: ${result.trysPerSecond}`);
