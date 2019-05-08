@@ -34,6 +34,6 @@ class Vain {
 			wif: keyPair.toWIF()
 		};
 	}
-};
+}
 
 module.exports = Vain;
