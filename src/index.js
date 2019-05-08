@@ -10,45 +10,50 @@ class Vain extends Emitter {
 	}
 
 	start() {
-		const startTime = Date.now();
+		return new Promise(resolve => {
+			const startTime = Date.now();
 
-		let found;
-		let attempts = 0;
-		let keyPair;
-		let address;
-		let lastUpdate = Date.now();
+			let found;
+			let attempts = 0;
+			let keyPair;
+			let address;
+			let lastUpdate = Date.now();
 
-		while (!found) {
-			attempts++;
-			keyPair = bitcoin.ECPair.makeRandom();
-			({address} = bitcoin.payments.p2pkh({pubkey: keyPair.publicKey}));
+			while (!found) {
+				attempts++;
+				keyPair = bitcoin.ECPair.makeRandom();
+				({address} = bitcoin.payments.p2pkh({pubkey: keyPair.publicKey}));
 
-			if (address.startsWith(this.prefix)) {
-				found = true;
+				if (address.startsWith(this.prefix)) {
+					found = true;
+				}
+
+				const now = Date.now();
+				if ((now - lastUpdate) > ONE_SECOND) {
+					const duration = now - startTime;
+					const addressesPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
+					this.emit('update', {
+						duration,
+						attempts,
+						addressesPerSecond
+					});
+					lastUpdate = now;
+				}
 			}
 
-			const now = Date.now();
-			if ((now - lastUpdate) > ONE_SECOND) {
-				const duration = now - startTime;
-				const addressesPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
-				this.emit('update', {
-					duration,
-					attempts,
-					addressesPerSecond
-				});
-				lastUpdate = now;
-			}
-		}
+			const endTime = Date.now();
+			const duration = endTime - startTime;
+			const addressesPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
 
-		const endTime = Date.now();
-		const duration = endTime - startTime;
-		const addressesPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
 
-		this.emit('found', {
-			duration,
-			addressesPerSecond,
-			address,
-			wif: keyPair.toWIF()
+			const result = {
+				duration,
+				addressesPerSecond,
+				address,
+				wif: keyPair.toWIF()
+			};
+			this.emit('found', result);
+			resolve(result);
 		});
 	}
 }
