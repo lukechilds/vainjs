@@ -6,8 +6,10 @@ console.log();
 console.log(`Searching for the prefix "${prefix}"...`);
 
 const vain = new Vain({prefix});
-const result = vain.start();
 
+vain.on('update', data => console.log('Update:', data));
+
+const result = vain.start();
 console.log();
 console.log(`Address: ${result.address}`);
 console.log(`WIF: ${result.wif}`);
