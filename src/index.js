@@ -1,6 +1,8 @@
 const Emitter = require('tiny-emitter');
 const bitcoin = require('bitcoinjs-lib');
 
+const ONE_SECOND = 1000;
+
 class Vain extends Emitter {
 	constructor({prefix}) {
 		super();
@@ -26,9 +28,9 @@ class Vain extends Emitter {
 			}
 
 			const now = Date.now();
-			if((now - lastUpdate) > 1000) {
+			if((now - lastUpdate) > ONE_SECOND) {
 				const duration = now - startTime;
-				const trysPerSecond = Math.floor(attempts / (duration / 1000));
+				const trysPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
 				this.emit('update', {
 					duration,
 					attempts,
@@ -40,7 +42,7 @@ class Vain extends Emitter {
 
 		const endTime = Date.now();
 		const duration = endTime - startTime;
-		const trysPerSecond = Math.floor(attempts / (duration / 1000));
+		const trysPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
 
 		return {
 			duration,
