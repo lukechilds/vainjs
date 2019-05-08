@@ -1,6 +1,8 @@
 language: node_js
 node_js:
-  - '12'
+  # Disable v12 until tiny-secp256k1 is fixed
+  # https://github.com/bitcoinjs/tiny-secp256k1/issues/38
+  # - '12'
   - '10'
   - '8'
   - '6'
