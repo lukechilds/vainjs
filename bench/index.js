@@ -14,10 +14,13 @@ vain.on('update', data => {
 	console.log(`Duration: ${duration} | Attempts: ${attempts} | Speed: ${speed}`);
 });
 
+vain.on('found', data => {
+  console.log();
+  console.log(`Address: ${data.address}`);
+  console.log(`WIF: ${data.wif}`);
+  console.log();
+  console.log(`Found in ${prettyMs(data.duration)}`);
+  console.log(`Speed: ${data.addressesPerSecond} addr/s`);
+});
+
 const result = vain.start();
-console.log();
-console.log(`Address: ${result.address}`);
-console.log(`WIF: ${result.wif}`);
-console.log();
-console.log(`Found in ${prettyMs(result.duration)}`);
-console.log(`Addresses per second: ${result.addressesPerSecond}`);

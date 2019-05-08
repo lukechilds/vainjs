@@ -44,12 +44,12 @@ class Vain extends Emitter {
 		const duration = endTime - startTime;
 		const addressesPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
 
-		return {
+		this.emit('found', {
 			duration,
 			addressesPerSecond,
 			address,
 			wif: keyPair.toWIF()
-		};
+		});
 	}
 }
 
