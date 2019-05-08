@@ -35,6 +35,7 @@
     "xo": "^0.23.0"
   },
   "dependencies": {
-    "bitcoinjs-lib": "^5.0.3"
+    "bitcoinjs-lib": "^5.0.3",
+    "tiny-emitter": "^2.1.0"
   }
 }
