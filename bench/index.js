@@ -15,12 +15,12 @@ vain.on('update', data => {
 });
 
 vain.on('found', data => {
-  console.log();
-  console.log(`Address: ${data.address}`);
-  console.log(`WIF: ${data.wif}`);
-  console.log();
-  console.log(`Found in ${prettyMs(data.duration)}`);
-  console.log(`Speed: ${data.addressesPerSecond} addr/s`);
+	console.log();
+	console.log(`Address: ${data.address}`);
+	console.log(`WIF: ${data.wif}`);
+	console.log();
+	console.log(`Found in ${prettyMs(data.duration)}`);
+	console.log(`Speed: ${data.addressesPerSecond} addr/s`);
 });
 
-const result = vain.start();
+vain.start();

@@ -1,9 +1,6 @@
 const Emitter = require('tiny-emitter');
-const bitcoin = require('bitcoinjs-lib');
 
 const p2pkh = require('./p2pkh');
-
-const ONE_SECOND = 1000;
 
 class Vain extends Emitter {
 	constructor({prefix}) {
