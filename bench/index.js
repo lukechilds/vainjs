@@ -15,4 +15,4 @@ console.log(`Address: ${result.address}`);
 console.log(`WIF: ${result.wif}`);
 console.log();
 console.log(`Found in ${prettyMs(result.duration)}`);
-console.log(`Trys per second: ${result.trysPerSecond}`);
+console.log(`Addresses per second: ${result.addressesPerSecond}`);

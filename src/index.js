@@ -30,11 +30,11 @@ class Vain extends Emitter {
 			const now = Date.now();
 			if ((now - lastUpdate) > ONE_SECOND) {
 				const duration = now - startTime;
-				const trysPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
+				const addressesPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
 				this.emit('update', {
 					duration,
 					attempts,
-					trysPerSecond
+					addressesPerSecond
 				});
 				lastUpdate = now;
 			}
@@ -42,11 +42,11 @@ class Vain extends Emitter {
 
 		const endTime = Date.now();
 		const duration = endTime - startTime;
-		const trysPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
+		const addressesPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
 
 		return {
 			duration,
-			trysPerSecond,
+			addressesPerSecond,
 			address,
 			wif: keyPair.toWIF()
 		};
