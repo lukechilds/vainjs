@@ -55,3 +55,17 @@ test('Vain derives a p2wpkh vanity address', async t => {
 	t.true(address.startsWith(`bc1q${options.prefix}`));
 	t.is(address, wifAddress);
 });
+
+test('Vain defaults to p2pkh if no address format is set', async t => {
+	const options = {
+		prefix: 'A'
+	};
+	const vain = new Vain(options);
+	const {address, wif} = await vain.start();
+
+	const keyPair = bitcoin.ECPair.fromWIF(wif);
+	const {address: wifAddress} = bitcoin.payments.p2pkh({pubkey: keyPair.publicKey});
+
+	t.true(address.startsWith(`1${options.prefix}`));
+	t.is(address, wifAddress);
+});
