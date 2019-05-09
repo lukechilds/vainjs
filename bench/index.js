@@ -1,7 +1,7 @@
 const Vain = require('..');
 const prettyMs = require('pretty-ms');
 
-[
+const options = [
   {
     addressFormat: 'p2pkh',
     prefix: 'BTC'
@@ -14,11 +14,15 @@ const prettyMs = require('pretty-ms');
     addressFormat: 'p2wpkh',
     prefix: 'xyz'
   },
-].forEach(({addressFormat, prefix}) => {
-	console.log();
-	console.log(`Searching for the prefix "${prefix}" for addres format "${addressFormat}"...`);
+];
 
-	const vain = new Vain({prefix, addressFormat});
+options.forEach(options => {
+  console.log();
+  console.log('========================================================================================');
+	console.log('Benchmarking options:', options);
+  console.log('========================================================================================');
+
+	const vain = new Vain(options);
 
 	vain.on('update', data => {
 		const duration = prettyMs(data.duration);
