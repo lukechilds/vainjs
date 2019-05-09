@@ -30,7 +30,7 @@ options.forEach(options => {
 		vain.on('update', data => {
 			const duration = prettyMs(data.duration);
 			const {attempts} = data;
-			const speed = `${data.addressesPerSecond} addr/s`;
+			const speed = `${data.addressesPerSecond.toLocaleString()} addr/s`;
 			console.log(`Duration: ${duration} | Attempts: ${attempts} | Speed: ${speed}`);
 		});
 	}
@@ -41,7 +41,7 @@ options.forEach(options => {
 		console.log(`WIF: ${data.wif}`);
 		console.log();
 		console.log(`Found in ${prettyMs(data.duration)}`);
-		console.log(`Speed: ${data.addressesPerSecond} addr/s`);
+		console.log(`Speed: ${data.addressesPerSecond.toLocaleString()} addr/s`);
 	});
 
 	vain.start();
