@@ -2,25 +2,25 @@ const Vain = require('..');
 const prettyMs = require('pretty-ms');
 
 const options = [
-  {
-    addressFormat: 'p2pkh',
-    prefix: 'BTC'
-  },
-  {
-    addressFormat: 'p2wpkh-p2sh',
-    prefix: 'BTC'
-  },
-  {
-    addressFormat: 'p2wpkh',
-    prefix: 'xyz'
-  },
+	{
+		addressFormat: 'p2pkh',
+		prefix: 'BTC'
+	},
+	{
+		addressFormat: 'p2wpkh-p2sh',
+		prefix: 'BTC'
+	},
+	{
+		addressFormat: 'p2wpkh',
+		prefix: 'xyz'
+	}
 ];
 
 options.forEach(options => {
-  console.log();
-  console.log('========================================================================================');
+	console.log();
+	console.log('========================================================================================');
 	console.log('Benchmarking options:', options);
-  console.log('========================================================================================');
+	console.log('========================================================================================');
 
 	const vain = new Vain(options);
 
