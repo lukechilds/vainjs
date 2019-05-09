@@ -1,16 +1,12 @@
 const Emitter = require('tiny-emitter');
 
-const p2pkh = require('./p2pkh');
-const p2wpkhp2sh = require('./p2wpkh-p2sh');
-const p2wpkh = require('./p2wpkh');
+const ONE_SECOND = 1000;
 
 const addressFormats = new Map(Object.entries({
-	p2pkh,
-	'p2wpkh-p2sh': p2wpkhp2sh,
-	p2wpkh
+	p2pkh: require('./p2pkh'),
+	'p2wpkh-p2sh': require('./p2wpkh-p2sh'),
+	p2wpkh: require('./p2wpkh')
 }));
-
-const ONE_SECOND = 1000;
 
 class Vain extends Emitter {
 	constructor({prefix, addressFormat = 'p2pkh'}) {
