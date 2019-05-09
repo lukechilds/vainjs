@@ -9,7 +9,7 @@ const addressFormats = new Map(Object.entries({
 }));
 
 class Vain extends Emitter {
-	constructor({prefix, addressFormat = 'p2pkh'}) {
+	constructor({addressFormat = 'p2pkh', prefix}) {
 		super();
 		this.addressFormat = addressFormats.get(addressFormat);
 		this.prefix = `${this.addressFormat.prefix}${prefix}`;
