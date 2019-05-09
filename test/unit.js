@@ -1,6 +1,6 @@
 import test from 'ava';
-import vanity from '..';
+import Vain from '..';
 
-test('vanity is exported', t => {
-	t.not(vanity, undefined);
+test('Vain is exported', t => {
+	t.not(Vain, undefined);
 });
