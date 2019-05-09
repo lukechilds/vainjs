@@ -1,6 +1,8 @@
 const Vain = require('..');
 const prettyMs = require('pretty-ms');
 
+const isCI = process.env.CI;
+
 const options = [
 	{
 		addressFormat: 'p2pkh',
@@ -24,12 +26,14 @@ options.forEach(options => {
 
 	const vain = new Vain(options);
 
-	vain.on('update', data => {
-		const duration = prettyMs(data.duration);
-		const {attempts} = data;
-		const speed = `${data.addressesPerSecond} addr/s`;
-		console.log(`Duration: ${duration} | Attempts: ${attempts} | Speed: ${speed}`);
-	});
+  if (!isCI) {
+    vain.on('update', data => {
+      const duration = prettyMs(data.duration);
+      const {attempts} = data;
+      const speed = `${data.addressesPerSecond} addr/s`;
+      console.log(`Duration: ${duration} | Attempts: ${attempts} | Speed: ${speed}`);
+    });
+  }
 
 	vain.on('found', data => {
 		console.log();
