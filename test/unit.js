@@ -1,9 +1,6 @@
 import test from 'ava';
-// For some reason AVA can't `import` bitcoin so `require` for now.
-// import bitcoin from 'bitcoinjs-lib';
+import * as bitcoin from 'bitcoinjs-lib';
 import Vain from '..';
-
-const bitcoin = require('bitcoinjs-lib');
 
 test('Vain is exported', t => {
 	t.not(Vain, undefined);
