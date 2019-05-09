@@ -1,8 +1,20 @@
 const Vain = require('..');
 const prettyMs = require('pretty-ms');
 
-['p2pkh', 'p2wpkh-p2sh'].forEach(addressFormat => {
-	const prefix = 'BTC';
+[
+  {
+    addressFormat: 'p2pkh',
+    prefix: 'BTC'
+  },
+  {
+    addressFormat: 'p2wpkh-p2sh',
+    prefix: 'BTC'
+  },
+  {
+    addressFormat: 'p2wpkh',
+    prefix: 'xyz'
+  },
+].forEach(({addressFormat, prefix}) => {
 	console.log();
 	console.log(`Searching for the prefix "${prefix}" for addres format "${addressFormat}"...`);
 
