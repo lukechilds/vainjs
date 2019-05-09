@@ -28,11 +28,11 @@
   },
   "homepage": "https://github.com/lukechilds/vainjs#readme",
   "devDependencies": {
-    "ava": "^0.25.0",
-    "coveralls": "^3.0.2",
-    "nyc": "^13.1.0",
+    "ava": "^1.4.1",
+    "coveralls": "^3.0.3",
+    "nyc": "^14.1.0",
     "pretty-ms": "^5.0.0",
-    "xo": "^0.23.0"
+    "xo": "^0.24.0"
   },
   "dependencies": {
     "bitcoinjs-lib": "^5.0.3",
