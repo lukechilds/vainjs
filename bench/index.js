@@ -6,15 +6,15 @@ const isCI = process.env.CI;
 const options = [
 	{
 		addressFormat: 'p2pkh',
-		prefix: 'BTC'
+		prefix: isCI ? 'Luke' : 'BTC'
 	},
 	{
 		addressFormat: 'p2wpkh-p2sh',
-		prefix: 'BTC'
+		prefix: isCI ? 'Luke' : 'BTC'
 	},
 	{
 		addressFormat: 'p2wpkh',
-		prefix: 'xyz'
+		prefix: isCI ? 'luke' : 'xyz'
 	}
 ];
 
