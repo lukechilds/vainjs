@@ -2,22 +2,22 @@ const Emitter = require('tiny-emitter');
 
 const ONE_SECOND = 1000;
 
-const keyFormats = new Map(Object.entries({
+const keyFormats = {
 	wif: require('./key-formats/wif'),
 	bip39: require('./key-formats/bip39')
-}));
+};
 
-const addressFormats = new Map(Object.entries({
+const addressFormats = {
 	p2pkh: require('./address-formats/p2pkh'),
 	'p2wpkh-p2sh': require('./address-formats/p2wpkh-p2sh'),
 	p2wpkh: require('./address-formats/p2wpkh')
-}));
+};
 
 class Vain extends Emitter {
 	constructor({keyFormat = 'wif', addressFormat = 'p2pkh', prefix}) {
 		super();
-		this.generateKey = keyFormats.get(keyFormat);
-		this.addressFormat = addressFormats.get(addressFormat);
+		this.generateKey = keyFormats[keyFormat];
+		this.addressFormat = addressFormats[addressFormat];
 
 		if (typeof prefix !== 'string' || prefix.length === 0) {
 			throw new Error('Prefix must be set');
