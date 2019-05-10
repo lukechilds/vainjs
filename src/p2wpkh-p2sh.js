@@ -6,21 +6,12 @@ const p2wpkhp2sh = {
 	charset: base58
 };
 
-p2wpkhp2sh.derive = () => {
-	const keyPair = bitcoin.ECPair.makeRandom();
+p2wpkhp2sh.derive = pubkey => {
 	const {address} = bitcoin.payments.p2sh({
-		redeem: bitcoin.payments.p2wpkh({pubkey: keyPair.publicKey})
+		redeem: bitcoin.payments.p2wpkh({pubkey})
 	});
 
-	return {
-		address,
-		keyPair
-	};
+	return address;
 };
-
-p2wpkhp2sh.format = ({address, keyPair}) => ({
-	address,
-	wif: keyPair.toWIF()
-});
 
 module.exports = p2wpkhp2sh;

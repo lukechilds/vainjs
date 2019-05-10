@@ -2,6 +2,10 @@ const Emitter = require('tiny-emitter');
 
 const ONE_SECOND = 1000;
 
+const keyFormats = new Map(Object.entries({
+	wif: require('./wif')
+}));
+
 const addressFormats = new Map(Object.entries({
 	p2pkh: require('./p2pkh'),
 	'p2wpkh-p2sh': require('./p2wpkh-p2sh'),
@@ -9,8 +13,9 @@ const addressFormats = new Map(Object.entries({
 }));
 
 class Vain extends Emitter {
-	constructor({addressFormat = 'p2pkh', prefix}) {
+	constructor({keyFormat = 'wif', addressFormat = 'p2pkh', prefix}) {
 		super();
+		this.keyFormat = keyFormats.get(keyFormat);
 		this.addressFormat = addressFormats.get(addressFormat);
 
 		if (typeof prefix !== 'string' || prefix.length === 0) {
@@ -32,15 +37,17 @@ class Vain extends Emitter {
 
 			let found;
 			let attempts = 0;
-			let data;
+			let keyData;
+			let address;
 			let lastUpdate = Date.now();
 
 			while (!found) {
 				attempts++;
 
-				data = this.addressFormat.derive();
+				keyData = this.keyFormat.generate();
+				address = this.addressFormat.derive(keyData.publicKey);
 
-				if (data.address.startsWith(this.prefix)) {
+				if (address.startsWith(this.prefix)) {
 					found = true;
 				}
 
@@ -64,7 +71,8 @@ class Vain extends Emitter {
 			const result = {
 				duration,
 				addressesPerSecond,
-				...this.addressFormat.format(data)
+				address,
+				...this.keyFormat.format(keyData)
 			};
 			this.emit('found', result);
 			resolve(result);
