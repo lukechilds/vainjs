@@ -47,7 +47,7 @@ options.forEach(options => {
 	if (!isCI) {
 		vain.on('update', data => {
 			const duration = prettyMs(data.duration);
-			const {attempts} = data;
+			const attempts = data.attempts.toLocaleString();
 			const speed = `${data.addressesPerSecond.toLocaleString()} addr/s`;
 			console.log(`Duration: ${duration} | Attempts: ${attempts} | Speed: ${speed}`);
 		});
@@ -71,7 +71,7 @@ options.forEach(options => {
 		}
 
 		console.log();
-		console.log(`Found in ${prettyMs(data.duration)}`);
+		console.log(`Found in ${prettyMs(data.duration)} after ${data.attempts.toLocaleString()} attempts`);
 		console.log(`Speed: ${data.addressesPerSecond.toLocaleString()} addr/s`);
 	});
 
