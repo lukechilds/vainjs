@@ -15,7 +15,7 @@ const addressFormats = new Map(Object.entries({
 class Vain extends Emitter {
 	constructor({keyFormat = 'wif', addressFormat = 'p2pkh', prefix}) {
 		super();
-		this.keyFormat = keyFormats.get(keyFormat);
+		this.generateKey = keyFormats.get(keyFormat);
 		this.addressFormat = addressFormats.get(addressFormat);
 
 		if (typeof prefix !== 'string' || prefix.length === 0) {
@@ -44,7 +44,7 @@ class Vain extends Emitter {
 			while (!found) {
 				attempts++;
 
-				keyData = this.keyFormat.generate();
+				keyData = this.generateKey();
 				address = this.addressFormat.derive(keyData.publicKey);
 
 				if (address.startsWith(this.prefix)) {
@@ -72,7 +72,7 @@ class Vain extends Emitter {
 				duration,
 				addressesPerSecond,
 				address,
-				...this.keyFormat.format(keyData)
+				...keyData.format()
 			};
 			this.emit('found', result);
 			resolve(result);
