@@ -13,6 +13,10 @@ class Vain extends Emitter {
 		super();
 		this.addressFormat = addressFormats.get(addressFormat);
 
+		if (typeof prefix !== 'string' || prefix.length === 0) {
+			throw new Error('Prefix must be set');
+		}
+
 		prefix.split('').forEach(char => {
 			if (!this.addressFormat.charset.includes(char)) {
 				throw new Error(`Invalid characters for address format "${addressFormat}"`);

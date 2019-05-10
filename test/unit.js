@@ -88,3 +88,9 @@ test('Vain throws on invalid charset', t => {
 		t.true(error.message.includes('Invalid characters for address format'));
 	});
 });
+
+test('Vain throws on undefined prefix', t => {
+	const options = {};
+	const error = t.throws(() => new Vain(options));
+	t.is(error.message, 'Prefix must be set');
+});
