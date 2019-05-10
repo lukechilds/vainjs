@@ -5,16 +5,34 @@ const isCI = process.env.CI;
 
 const options = [
 	{
+		keyFormat: 'wif',
 		addressFormat: 'p2pkh',
 		prefix: 'BTC'
 	},
 	{
+		keyFormat: 'wif',
 		addressFormat: 'p2wpkh-p2sh',
 		prefix: 'BTC'
 	},
 	{
+		keyFormat: 'wif',
 		addressFormat: 'p2wpkh',
 		prefix: 'xyz'
+	},
+	{
+		keyFormat: 'bip39',
+		addressFormat: 'p2pkh',
+		prefix: 'Hi'
+	},
+	{
+		keyFormat: 'bip39',
+		addressFormat: 'p2wpkh-p2sh',
+		prefix: 'Hi'
+	},
+	{
+		keyFormat: 'bip39',
+		addressFormat: 'p2wpkh',
+		prefix: 'yz'
 	}
 ];
 
@@ -38,7 +56,20 @@ options.forEach(options => {
 	vain.on('found', data => {
 		console.log();
 		console.log(`Address: ${data.address}`);
-		console.log(`WIF: ${data.wif}`);
+
+		switch (options.keyFormat) {
+			case 'wif':
+				console.log(`WIF: ${data.wif}`);
+				break;
+
+			case 'bip39':
+				console.log(`Derivation Path: ${data.derivationPath}`);
+				console.log(`Mnemonic: ${data.mnemonic}`);
+				break;
+
+			default:
+		}
+
 		console.log();
 		console.log(`Found in ${prettyMs(data.duration)}`);
 		console.log(`Speed: ${data.addressesPerSecond.toLocaleString()} addr/s`);
