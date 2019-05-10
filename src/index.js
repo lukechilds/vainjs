@@ -73,6 +73,7 @@ class Vain extends Emitter {
 
 			const result = {
 				duration,
+				attempts,
 				addressesPerSecond,
 				address,
 				...keyData.format()
