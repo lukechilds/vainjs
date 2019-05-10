@@ -3,7 +3,8 @@ const {bech32} = require('./charsets');
 
 const p2wpkh = {
 	prefix: 'bc1q',
-	charset: bech32
+	charset: bech32,
+	bip39: '84'
 };
 
 p2wpkh.derive = pubkey => {

@@ -3,7 +3,8 @@ const {base58} = require('./charsets');
 
 const p2wpkhp2sh = {
 	prefix: '3',
-	charset: base58
+	charset: base58,
+	bip39: '49'
 };
 
 p2wpkhp2sh.derive = pubkey => {

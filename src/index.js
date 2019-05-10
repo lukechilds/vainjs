@@ -3,7 +3,8 @@ const Emitter = require('tiny-emitter');
 const ONE_SECOND = 1000;
 
 const keyFormats = new Map(Object.entries({
-	wif: require('./key-formats/wif')
+	wif: require('./key-formats/wif'),
+	bip39: require('./key-formats/bip39')
 }));
 
 const addressFormats = new Map(Object.entries({
@@ -35,6 +36,8 @@ class Vain extends Emitter {
 		return new Promise(resolve => {
 			const startTime = Date.now();
 
+			const {generateKey, addressFormat} = this;
+
 			let found;
 			let attempts = 0;
 			let keyData;
@@ -44,8 +47,8 @@ class Vain extends Emitter {
 			while (!found) {
 				attempts++;
 
-				keyData = this.generateKey();
-				address = this.addressFormat.derive(keyData.publicKey);
+				keyData = generateKey({addressFormat});
+				address = addressFormat.derive(keyData.publicKey);
 
 				if (address.startsWith(this.prefix)) {
 					found = true;
