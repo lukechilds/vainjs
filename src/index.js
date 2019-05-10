@@ -3,13 +3,13 @@ const Emitter = require('tiny-emitter');
 const ONE_SECOND = 1000;
 
 const keyFormats = new Map(Object.entries({
-	wif: require('./wif')
+	wif: require('./key-formats/wif')
 }));
 
 const addressFormats = new Map(Object.entries({
-	p2pkh: require('./p2pkh'),
-	'p2wpkh-p2sh': require('./p2wpkh-p2sh'),
-	p2wpkh: require('./p2wpkh')
+	p2pkh: require('./address-formats/p2pkh'),
+	'p2wpkh-p2sh': require('./address-formats/p2wpkh-p2sh'),
+	p2wpkh: require('./address-formats/p2wpkh')
 }));
 
 class Vain extends Emitter {
