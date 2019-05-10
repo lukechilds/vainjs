@@ -1,7 +1,9 @@
 const bitcoin = require('bitcoinjs-lib');
+const {bech32} = require('./charsets');
 
 const p2wpkh = {
-	prefix: 'bc1q'
+	prefix: 'bc1q',
+	charset: bech32
 };
 
 p2wpkh.derive = () => {

@@ -1,7 +1,9 @@
 const bitcoin = require('bitcoinjs-lib');
+const {base58} = require('./charsets');
 
 const p2wpkhp2sh = {
-	prefix: '3'
+	prefix: '3',
+	charset: base58
 };
 
 p2wpkhp2sh.derive = () => {

@@ -66,3 +66,25 @@ test('Vain defaults to p2pkh if no address format is set', async t => {
 	t.true(address.startsWith(`1${options.prefix}`));
 	t.is(address, wifAddress);
 });
+
+test('Vain throws on invalid charset', t => {
+	const optionsArray = [
+		{
+			addressFormat: 'p2pkh',
+			prefix: '0'
+		},
+		{
+			addressFormat: 'p2wpkh-p2sh',
+			prefix: '0'
+		},
+		{
+			addressFormat: 'p2wpkh',
+			prefix: '1'
+		}
+	];
+
+	optionsArray.forEach(options => {
+		const error = t.throws(() => new Vain(options));
+		t.true(error.message.includes('Invalid characters for address format'));
+	});
+});

@@ -12,6 +12,13 @@ class Vain extends Emitter {
 	constructor({addressFormat = 'p2pkh', prefix}) {
 		super();
 		this.addressFormat = addressFormats.get(addressFormat);
+
+		prefix.split('').forEach(char => {
+			if (!this.addressFormat.charset.includes(char)) {
+				throw new Error(`Invalid characters for address format "${addressFormat}"`);
+			}
+		});
+
 		this.prefix = `${this.addressFormat.prefix}${prefix}`;
 	}
 
