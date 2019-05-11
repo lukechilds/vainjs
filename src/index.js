@@ -14,30 +14,37 @@ const addressFormats = {
 };
 
 class Vain extends Emitter {
-	constructor({keyFormat = 'wif', addressFormat = 'p2pkh', prefix}) {
+	constructor(options = {}) {
 		super();
-		this.generating = false;
-		this.generateKey = keyFormats[keyFormat];
-		this.addressFormat = addressFormats[addressFormat];
 
-		if (typeof prefix !== 'string' || prefix.length === 0) {
+		this.options = {
+			keyFormat: 'wif',
+			addressFormat: 'p2pkh',
+			...options
+		};
+
+		this.generating = false;
+		this.generateKey = keyFormats[this.options.keyFormat];
+		this.addressFormat = addressFormats[this.options.addressFormat];
+
+		if (typeof this.options.prefix !== 'string' || this.options.prefix.length === 0) {
 			throw new Error('Prefix must be set');
 		}
 
-		prefix.split('').forEach(char => {
+		this.options.prefix.split('').forEach(char => {
 			if (!this.addressFormat.charset.includes(char)) {
-				throw new Error(`Invalid characters for address format "${addressFormat}"`);
+				throw new Error(`Invalid characters for address format "${this.options.prefix.addressFormat}"`);
 			}
 		});
 
-		this.prefix = `${this.addressFormat.prefix}${prefix}`;
+		this.prefix = `${this.addressFormat.prefix}${this.options.prefix}`;
 	}
 
 	generate() {
 		this.generating = true;
 		const startTime = Date.now();
 
-		const {generateKey, addressFormat} = this;
+		const {generateKey, addressFormat, options} = this;
 
 		let found;
 		let attempts = 0;
@@ -52,7 +59,7 @@ class Vain extends Emitter {
 
 			attempts++;
 
-			keyData = generateKey({addressFormat});
+			keyData = generateKey({addressFormat, options});
 			address = addressFormat.derive(keyData.publicKey);
 
 			if (address.startsWith(this.prefix)) {

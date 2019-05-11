@@ -15,3 +15,19 @@ test('Vain defaults to p2pkh if no address format is set', t => {
 	t.true(address.startsWith(`1${options.prefix}`));
 	t.is(address, wifAddress);
 });
+
+test('Vain allows setting bip39 entropy via `options.entropy`', t => {
+	const options = {
+		prefix: 'A',
+		keyFormat: 'bip39',
+		entropy: 128
+	};
+	let vain = new Vain(options);
+	let {mnemonic} = vain.generate();
+	t.is(mnemonic.split(' ').length, 12);
+
+	options.entropy = 256;
+	vain = new Vain(options);
+	({mnemonic} = vain.generate());
+	t.is(mnemonic.split(' ').length, 24);
+});
