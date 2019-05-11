@@ -75,5 +75,5 @@ options.forEach(options => {
 		console.log(`Speed: ${data.addressesPerSecond.toLocaleString()} addr/s`);
 	});
 
-	vain.start();
+	vain.generate();
 });

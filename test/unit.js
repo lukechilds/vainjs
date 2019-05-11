@@ -7,13 +7,13 @@ test('Vain is exported', t => {
 	t.not(Vain, undefined);
 });
 
-test('Vain derives a p2pkh vanity address', async t => {
+test('Vain derives a p2pkh vanity address', t => {
 	const options = {
 		addressFormat: 'p2pkh',
 		prefix: 'A'
 	};
 	const vain = new Vain(options);
-	const {address, wif} = await vain.start();
+	const {address, wif} = vain.generate();
 
 	const keyPair = bitcoin.ECPair.fromWIF(wif);
 	const {address: wifAddress} = bitcoin.payments.p2pkh({pubkey: keyPair.publicKey});
@@ -22,13 +22,13 @@ test('Vain derives a p2pkh vanity address', async t => {
 	t.is(address, wifAddress);
 });
 
-test('Vain derives a p2wpkh-p2sh vanity address', async t => {
+test('Vain derives a p2wpkh-p2sh vanity address', t => {
 	const options = {
 		addressFormat: 'p2wpkh-p2sh',
 		prefix: 'A'
 	};
 	const vain = new Vain(options);
-	const {address, wif} = await vain.start();
+	const {address, wif} = vain.generate();
 
 	const keyPair = bitcoin.ECPair.fromWIF(wif);
 	const {address: wifAddress} = bitcoin.payments.p2sh({
@@ -39,13 +39,13 @@ test('Vain derives a p2wpkh-p2sh vanity address', async t => {
 	t.is(address, wifAddress);
 });
 
-test('Vain derives a p2wpkh vanity address', async t => {
+test('Vain derives a p2wpkh vanity address', t => {
 	const options = {
 		addressFormat: 'p2wpkh',
 		prefix: 'a'
 	};
 	const vain = new Vain(options);
-	const {address, wif} = await vain.start();
+	const {address, wif} = vain.generate();
 
 	const keyPair = bitcoin.ECPair.fromWIF(wif);
 	const {address: wifAddress} = bitcoin.payments.p2wpkh({pubkey: keyPair.publicKey});
@@ -61,7 +61,7 @@ test('Vain derives a p2pkh vanity seed', async t => {
 		prefix: 'A'
 	};
 	const vain = new Vain(options);
-	const {address, derivationPath, mnemonic} = await vain.start();
+	const {address, derivationPath, mnemonic} = vain.generate();
 
 	const seed = await bip39.mnemonicToSeed(mnemonic);
 	const node = bitcoin.bip32.fromSeed(seed);
@@ -79,7 +79,7 @@ test('Vain derives a p2wpkh-p2sh vanity seed', async t => {
 		prefix: 'A'
 	};
 	const vain = new Vain(options);
-	const {address, derivationPath, mnemonic} = await vain.start();
+	const {address, derivationPath, mnemonic} = vain.generate();
 
 	const seed = await bip39.mnemonicToSeed(mnemonic);
 	const node = bitcoin.bip32.fromSeed(seed);
@@ -99,7 +99,7 @@ test('Vain derives a p2wpkh vanity seed', async t => {
 		prefix: 'a'
 	};
 	const vain = new Vain(options);
-	const {address, derivationPath, mnemonic} = await vain.start();
+	const {address, derivationPath, mnemonic} = vain.generate();
 
 	const seed = await bip39.mnemonicToSeed(mnemonic);
 	const node = bitcoin.bip32.fromSeed(seed);
@@ -110,12 +110,12 @@ test('Vain derives a p2wpkh vanity seed', async t => {
 	t.is(address, seedAddress);
 });
 
-test('Vain defaults to p2pkh if no address format is set', async t => {
+test('Vain defaults to p2pkh if no address format is set', t => {
 	const options = {
 		prefix: 'A'
 	};
 	const vain = new Vain(options);
-	const {address, wif} = await vain.start();
+	const {address, wif} = vain.generate();
 
 	const keyPair = bitcoin.ECPair.fromWIF(wif);
 	const {address: wifAddress} = bitcoin.payments.p2pkh({pubkey: keyPair.publicKey});

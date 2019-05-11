@@ -32,55 +32,53 @@ class Vain extends Emitter {
 		this.prefix = `${this.addressFormat.prefix}${prefix}`;
 	}
 
-	start() {
-		return new Promise(resolve => {
-			const startTime = Date.now();
+	generate() {
+		const startTime = Date.now();
 
-			const {generateKey, addressFormat} = this;
+		const {generateKey, addressFormat} = this;
 
-			let found;
-			let attempts = 0;
-			let keyData;
-			let address;
-			let lastUpdate = Date.now();
+		let found;
+		let attempts = 0;
+		let keyData;
+		let address;
+		let lastUpdate = Date.now();
 
-			while (!found) {
-				attempts++;
+		while (!found) {
+			attempts++;
 
-				keyData = generateKey({addressFormat});
-				address = addressFormat.derive(keyData.publicKey);
+			keyData = generateKey({addressFormat});
+			address = addressFormat.derive(keyData.publicKey);
 
-				if (address.startsWith(this.prefix)) {
-					found = true;
-				}
-
-				const now = Date.now();
-				if ((now - lastUpdate) > ONE_SECOND) {
-					const duration = now - startTime;
-					const addressesPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
-					this.emit('update', {
-						duration,
-						attempts,
-						addressesPerSecond
-					});
-					lastUpdate = now;
-				}
+			if (address.startsWith(this.prefix)) {
+				found = true;
 			}
 
-			const endTime = Date.now();
-			const duration = endTime - startTime;
-			const addressesPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
+			const now = Date.now();
+			if ((now - lastUpdate) > ONE_SECOND) {
+				const duration = now - startTime;
+				const addressesPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
+				this.emit('update', {
+					duration,
+					attempts,
+					addressesPerSecond
+				});
+				lastUpdate = now;
+			}
+		}
 
-			const result = {
-				duration,
-				attempts,
-				addressesPerSecond,
-				address,
-				...keyData.format()
-			};
-			this.emit('found', result);
-			resolve(result);
-		});
+		const endTime = Date.now();
+		const duration = endTime - startTime;
+		const addressesPerSecond = Math.floor(attempts / (duration / ONE_SECOND));
+
+		const result = {
+			duration,
+			attempts,
+			addressesPerSecond,
+			address,
+			...keyData.format()
+		};
+		this.emit('found', result);
+		return result;
 	}
 }
 
