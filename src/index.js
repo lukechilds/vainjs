@@ -16,6 +16,7 @@ const addressFormats = {
 class Vain extends Emitter {
 	constructor({keyFormat = 'wif', addressFormat = 'p2pkh', prefix}) {
 		super();
+		this.generating = false;
 		this.generateKey = keyFormats[keyFormat];
 		this.addressFormat = addressFormats[addressFormat];
 
@@ -33,6 +34,7 @@ class Vain extends Emitter {
 	}
 
 	generate() {
+		this.generating = true;
 		const startTime = Date.now();
 
 		const {generateKey, addressFormat} = this;
@@ -44,6 +46,10 @@ class Vain extends Emitter {
 		let lastUpdate = Date.now();
 
 		while (!found) {
+			if (!this.generating) {
+				return {stopped: true};
+			}
+
 			attempts++;
 
 			keyData = generateKey({addressFormat});
@@ -51,6 +57,7 @@ class Vain extends Emitter {
 
 			if (address.startsWith(this.prefix)) {
 				found = true;
+				this.generating = false;
 			}
 
 			const now = Date.now();
