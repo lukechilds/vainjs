@@ -60,6 +60,17 @@ const testCases = [
 		xpub,
 		addressFormat: 'p2wpkh',
 		prefix: 'a'
+	},
+	{
+		keyFormat: 'multisig',
+		addressFormat: 'p2sh',
+		prefix: 'A',
+		pubkeys: [
+			Buffer.from('030000000000000000000000000000000000000000000000000000000000000001', 'hex'),
+			Buffer.from('030000000000000000000000000000000000000000000000000000000000000002', 'hex'),
+			Buffer.from('030000000000000000000000000000000000000000000000000000000000000003', 'hex')
+		],
+		m: 2
 	}
 ];
 
@@ -87,6 +98,11 @@ testCases.forEach(options => {
 			case 'xpub': {
 				const node = bitcoin.bip32.fromBase58(keyData.xpub);
 				key = node.derivePath(keyData.derivationPath);
+				break;
+			}
+
+			case 'multisig': {
+				key = keyData;
 				break;
 			}
 
