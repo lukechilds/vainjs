@@ -1,6 +1,6 @@
 const bitcoin = require('bitcoinjs-lib');
 
-const wif = () => {
+const generateWif = () => {
 	const keyPair = bitcoin.ECPair.makeRandom();
 	const {publicKey} = keyPair;
 
@@ -11,4 +11,4 @@ const wif = () => {
 	return {publicKey, format};
 };
 
-module.exports = wif;
+module.exports = generateWif;
