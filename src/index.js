@@ -39,6 +39,10 @@ class Vain extends Emitter {
 		});
 
 		this.prefix = `${this.addressFormat.prefix}${this.options.prefix}`;
+
+		if (this.options.keyFormat === 'xpub' && typeof this.options.xpub !== 'string') {
+			throw new Error('An xpub string must be passed in');
+		}
 	}
 
 	generate() {

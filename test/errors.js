@@ -28,3 +28,9 @@ test('Vain throws when `options.prefix` is `undefined`', t => {
 	const error = t.throws(() => new Vain(options));
 	t.is(error.message, 'Prefix must be set');
 });
+
+test('Vain throws when `options.xpub` is `undefined` when `options.keyFormat` is `xpub`', t => {
+	const options = {keyFormat: 'xpub', prefix: 'BTC'};
+	const error = t.throws(() => new Vain(options));
+	t.is(error.message, 'An xpub string must be passed in');
+});
