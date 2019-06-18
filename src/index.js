@@ -4,7 +4,8 @@ const ONE_SECOND = 1000;
 
 const keyFormats = {
 	wif: require('./key-formats/wif'),
-	bip39: require('./key-formats/bip39')
+	bip39: require('./key-formats/bip39'),
+	xpub: require('./key-formats/xpub')
 };
 
 const addressFormats = {
@@ -59,7 +60,7 @@ class Vain extends Emitter {
 
 			attempts++;
 
-			keyData = generateKey({addressFormat, options});
+			keyData = generateKey({addressFormat, options, attempts});
 			address = addressFormat.derive(keyData.publicKey);
 
 			if (address.startsWith(this.prefix)) {
