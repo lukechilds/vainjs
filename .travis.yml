@@ -5,7 +5,13 @@ node_js:
   # - '12'
   - '10'
   - '8'
-script: npm test && npm run bench
+env:
+  - TEST_SUITE=test
+matrix:
+  include:
+    - node_js: "10"
+      env: TEST_SUITE=bench
+script: npm run-script $TEST_SUITE
 after_success: npm run coverage
 notifications:
   email:
