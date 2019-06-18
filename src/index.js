@@ -46,16 +46,20 @@ class Vain extends Emitter {
 			throw new Error('An xpub string must be passed in');
 		}
 
-		if (this.options.keyFormat === 'multisig' && this.options.addressFormat !== 'p2sh') {
-			throw new Error('When using key format "multisig" address format must be "p2sh"');
-		}
+		if (this.options.keyFormat === 'multisig') {
+			if (this.options.addressFormat !== 'p2sh') {
+				throw new Error('When using key format "multisig" address format must be "p2sh"');
+			}
 
-		if (this.options.keyFormat === 'multisig' && typeof this.options.pubkeys === 'undefined') {
-			throw new Error('When using key format "multisig" a "pubkeys" array must be passed in');
-		}
+			if (typeof this.options.pubkeys === 'undefined') {
+				// eslint-disable-next-line unicorn/prefer-type-error
+				throw new Error('When using key format "multisig" a "pubkeys" array must be passed in');
+			}
 
-		if (this.options.keyFormat === 'multisig' && typeof this.options.m !== 'number') {
-			throw new Error('When using key format "multisig" an "m" value must be passed in');
+			if (typeof this.options.m !== 'number') {
+				// eslint-disable-next-line unicorn/prefer-type-error
+				throw new Error('When using key format "multisig" an "m" value must be passed in');
+			}
 		}
 	}
 
