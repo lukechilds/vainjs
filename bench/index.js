@@ -9,50 +9,50 @@ const options = [
 	{
 		keyFormat: 'wif',
 		addressFormat: 'p2pkh',
-		prefix: 'BTC'
+		prefix: 'Luke'
 	},
 	{
 		keyFormat: 'wif',
 		addressFormat: 'p2wpkh-p2sh',
-		prefix: 'BTC'
+		prefix: 'Luke'
 	},
 	{
 		keyFormat: 'wif',
 		addressFormat: 'p2wpkh',
-		prefix: 'xyz'
+		prefix: 'luke'
 	},
 	{
 		keyFormat: 'bip39',
 		addressFormat: 'p2pkh',
-		prefix: 'Hi'
+		prefix: 'Luke'
 	},
 	{
 		keyFormat: 'bip39',
 		addressFormat: 'p2wpkh-p2sh',
-		prefix: 'Hi'
+		prefix: 'Luke'
 	},
 	{
 		keyFormat: 'bip39',
 		addressFormat: 'p2wpkh',
-		prefix: 'yz'
+		prefix: 'luke'
 	},
 	{
 		keyFormat: 'xpub',
 		xpub,
 		addressFormat: 'p2pkh',
-		prefix: 'BTC'
+		prefix: 'Luke'
 	},
 	{
 		keyFormat: 'xpub',
 		xpub,
 		addressFormat: 'p2wpkh-p2sh',
-		prefix: 'BTC'
+		prefix: 'Luke'
 	},
 	{
 		keyFormat: 'xpub',
 		xpub,
 		addressFormat: 'p2wpkh',
-		prefix: 'xyz'
+		prefix: 'luke'
 	},
 	{
 		keyFormat: 'multisig',
@@ -63,7 +63,7 @@ const options = [
 			Buffer.from('030000000000000000000000000000000000000000000000000000000000000003', 'hex')
 		],
 		m: 2,
-		prefix: 'BTC'
+		prefix: 'Luke'
 	}
 ];
 
@@ -75,14 +75,16 @@ options.forEach(options => {
 
 	const vain = new Vain(options);
 
-	if (!isCI) {
-		vain.on('update', data => {
+	vain.on('update', data => {
+		if (isCI) {
+			process.stdout.write('.');
+		} else {
 			const duration = prettyMs(data.duration);
 			const attempts = data.attempts.toLocaleString();
 			const speed = `${data.addressesPerSecond.toLocaleString()} addr/s`;
 			console.log(`Duration: ${duration} | Attempts: ${attempts} | Speed: ${speed}`);
-		});
-	}
+		}
+	});
 
 	vain.on('found', data => {
 		console.log();
