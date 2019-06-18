@@ -36,7 +36,7 @@ class Vain extends Emitter {
 
 		this.options.prefix.split('').forEach(char => {
 			if (!this.addressFormat.charset.includes(char)) {
-				throw new Error(`Invalid characters for address format "${this.options.prefix.addressFormat}"`);
+				throw new Error(`Invalid characters for address format "${this.options.addressFormat}"`);
 			}
 		});
 

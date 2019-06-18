@@ -31,7 +31,7 @@ const multisigOptions = {
 invalidCharsets.forEach(options => {
 	test(`Vain throws when \`options.prefix\` doesn't match the charset for ${options.addressFormat} addresses`, t => {
 		const error = t.throws(() => new Vain(options));
-		t.true(error.message.includes('Invalid characters for address format'));
+		t.is(error.message, `Invalid characters for address format "${options.addressFormat}"`);
 	});
 });
 
