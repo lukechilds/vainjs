@@ -17,8 +17,6 @@ const deriveAddress = {
 	}
 };
 
-const keyFormats = ['wif', 'bip39'];
-
 const testCases = [
 	{
 		options: {
@@ -43,9 +41,22 @@ const testCases = [
 	}
 ];
 
-keyFormats.forEach(keyFormat => {
+const additionalOptionCombos = [
+	{
+		keyFormat: 'wif'
+	},
+	{
+		keyFormat: 'bip39'
+	},
+	{
+		keyFormat: 'xpub',
+		xpub: 'xpub6EDZZg3os4RaLxfPpnGBb7ajm6ccyjRs3PGZ5jNK31rPnbpyKb7dc87cEPaLEjFYDBGCQT8VMm8q8MVj2tj7HPBu8syxu82cdHLCNaQmT42'
+	}
+];
+
+additionalOptionCombos.forEach(additionalOptions => {
 	testCases.forEach(({options, expectedPrefix}) => {
-		options = {...options, keyFormat};
+		options = {...options, ...additionalOptions};
 
 		test(`Vain generates a valid ${options.keyFormat} ${options.addressFormat} vanity address`, async t => {
 			const vain = new Vain(options);
@@ -62,6 +73,12 @@ keyFormats.forEach(keyFormat => {
 				case 'bip39': {
 					const seed = await bip39.mnemonicToSeed(keyData.mnemonic);
 					const node = bitcoin.bip32.fromSeed(seed);
+					({publicKey} = node.derivePath(keyData.derivationPath));
+					break;
+				}
+
+				case 'xpub': {
+					const node = bitcoin.bip32.fromBase58(keyData.xpub);
 					({publicKey} = node.derivePath(keyData.derivationPath));
 					break;
 				}
