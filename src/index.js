@@ -5,13 +5,15 @@ const ONE_SECOND = 1000;
 const keyFormats = {
 	wif: require('./key-formats/wif'),
 	bip39: require('./key-formats/bip39'),
-	xpub: require('./key-formats/xpub')
+	xpub: require('./key-formats/xpub'),
+	multisig: require('./key-formats/multisig')
 };
 
 const addressFormats = {
 	p2pkh: require('./address-formats/p2pkh'),
 	'p2wpkh-p2sh': require('./address-formats/p2wpkh-p2sh'),
-	p2wpkh: require('./address-formats/p2wpkh')
+	p2wpkh: require('./address-formats/p2wpkh'),
+	p2sh: require('./address-formats/p2sh')
 };
 
 class Vain extends Emitter {
@@ -65,7 +67,7 @@ class Vain extends Emitter {
 			attempts++;
 
 			keyData = generateKey({...options, addressFormat, attempts});
-			address = addressFormat.derive(keyData.publicKey);
+			address = addressFormat.derive(keyData);
 
 			if (address.startsWith(this.prefix)) {
 				found = true;

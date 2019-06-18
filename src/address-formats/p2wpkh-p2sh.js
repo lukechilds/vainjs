@@ -7,9 +7,9 @@ const p2wpkhp2sh = {
 	bip39: '49'
 };
 
-p2wpkhp2sh.derive = pubkey => {
+p2wpkhp2sh.derive = ({publicKey}) => {
 	const {address} = bitcoin.payments.p2sh({
-		redeem: bitcoin.payments.p2wpkh({pubkey})
+		redeem: bitcoin.payments.p2wpkh({pubkey: publicKey})
 	});
 
 	return address;

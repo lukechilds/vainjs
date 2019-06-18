@@ -7,8 +7,8 @@ const p2pkh = {
 	bip39: '44'
 };
 
-p2pkh.derive = pubkey => {
-	const {address} = bitcoin.payments.p2pkh({pubkey});
+p2pkh.derive = ({publicKey}) => {
+	const {address} = bitcoin.payments.p2pkh({pubkey: publicKey});
 
 	return address;
 };
