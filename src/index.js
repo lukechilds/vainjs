@@ -60,7 +60,7 @@ class Vain extends Emitter {
 
 			attempts++;
 
-			keyData = generateKey({addressFormat, options, attempts});
+			keyData = generateKey({...options, addressFormat, attempts});
 			address = addressFormat.derive(keyData.publicKey);
 
 			if (address.startsWith(this.prefix)) {

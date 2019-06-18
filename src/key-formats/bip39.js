@@ -1,8 +1,8 @@
 const bip39 = require('bip39');
 const bitcoin = require('bitcoinjs-lib');
 
-const generatebip39Key = ({addressFormat, options}) => {
-	const mnemonic = bip39.generateMnemonic(options.entropy);
+const generatebip39Key = ({addressFormat, entropy}) => {
+	const mnemonic = bip39.generateMnemonic(entropy);
 	const seed = bip39.mnemonicToSeedSync(mnemonic);
 
 	const node = bitcoin.bip32.fromSeed(seed);
