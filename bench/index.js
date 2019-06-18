@@ -3,6 +3,8 @@ const prettyMs = require('pretty-ms');
 
 const isCI = process.env.CI;
 
+const xpub = 'xpub6EDZZg3os4RaLxfPpnGBb7ajm6ccyjRs3PGZ5jNK31rPnbpyKb7dc87cEPaLEjFYDBGCQT8VMm8q8MVj2tj7HPBu8syxu82cdHLCNaQmT42';
+
 const options = [
 	{
 		keyFormat: 'wif',
@@ -33,6 +35,24 @@ const options = [
 		keyFormat: 'bip39',
 		addressFormat: 'p2wpkh',
 		prefix: 'yz'
+	},
+	{
+		keyFormat: 'xpub',
+		xpub,
+		addressFormat: 'p2pkh',
+		prefix: 'BTC'
+	},
+	{
+		keyFormat: 'xpub',
+		xpub,
+		addressFormat: 'p2wpkh-p2sh',
+		prefix: 'BTC'
+	},
+	{
+		keyFormat: 'xpub',
+		xpub,
+		addressFormat: 'p2wpkh',
+		prefix: 'xyz'
 	}
 ];
 
@@ -65,6 +85,11 @@ options.forEach(options => {
 			case 'bip39':
 				console.log(`Derivation Path: ${data.derivationPath}`);
 				console.log(`Mnemonic: ${data.mnemonic}`);
+				break;
+
+			case 'xpub':
+				console.log(`Derivation Path: ${data.derivationPath}`);
+				console.log(`xpub: ${data.xpub}`);
 				break;
 
 			default:
