@@ -53,6 +53,17 @@ const options = [
 		xpub,
 		addressFormat: 'p2wpkh',
 		prefix: 'xyz'
+	},
+	{
+		keyFormat: 'multisig',
+		addressFormat: 'p2sh',
+		pubkeys: [
+			Buffer.from('030000000000000000000000000000000000000000000000000000000000000001', 'hex'),
+			Buffer.from('030000000000000000000000000000000000000000000000000000000000000002', 'hex'),
+			Buffer.from('030000000000000000000000000000000000000000000000000000000000000003', 'hex')
+		],
+		m: 2,
+		prefix: 'BTC'
 	}
 ];
 
@@ -90,6 +101,13 @@ options.forEach(options => {
 			case 'xpub':
 				console.log(`Derivation Path: ${data.derivationPath}`);
 				console.log(`xpub: ${data.xpub}`);
+				break;
+
+			case 'multisig':
+				console.log(`Redeem Script: ${data.redeemScript.toString('hex')}`);
+				console.log(`m: ${data.m}`);
+				console.log(`n: ${data.n}`);
+				console.log(`Public Keys:\n${data.pubkeys.map(k => k.toString('hex')).join('\n')}`);
 				break;
 
 			default:
