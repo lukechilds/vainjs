@@ -1,5 +1,5 @@
-const Vain = require('..');
 const prettyMs = require('pretty-ms');
+const Vain = require('..');
 
 const isCI = process.env.CI;
 
