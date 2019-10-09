@@ -99,7 +99,7 @@ options.forEach(options => {
 				break;
 
 			case 'xpub':
-				console.log(`Derivation Path: ${data.derivationPath}`);
+				console.log(`Derivation Index: ${data.index}`);
 				console.log(`xpub: ${data.xpub}`);
 				break;
 

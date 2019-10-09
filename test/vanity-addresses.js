@@ -97,7 +97,7 @@ testCases.forEach(options => {
 
 			case 'xpub': {
 				const node = bitcoin.bip32.fromBase58(keyData.xpub);
-				key = node.derivePath(keyData.derivationPath);
+				key = node.derive(keyData.index);
 				break;
 			}
 
