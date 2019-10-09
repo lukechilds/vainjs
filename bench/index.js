@@ -1,9 +1,26 @@
+const {argv} = require('yargs');
 const prettyMs = require('pretty-ms');
 const Vain = require('..');
 
 const isCI = process.env.CI;
 
 const xpub = 'xpub6EDZZg3os4RaLxfPpnGBb7ajm6ccyjRs3PGZ5jNK31rPnbpyKb7dc87cEPaLEjFYDBGCQT8VMm8q8MVj2tj7HPBu8syxu82cdHLCNaQmT42';
+
+// Filter benchmark tests with arguments like:
+// $ npm run bench
+// $ npm run bench -- --key-format=wif
+// $ npm run bench -- --address-format=p2pkh
+// $ npm run bench -- --key-format=wif --address-format=p2pkh
+const filterOptionsFromArgs = options => {
+	if (
+		(argv.keyFormat && argv.keyFormat !== options.keyFormat) ||
+		(argv.addressFormat && argv.addressFormat !== options.addressFormat)
+	) {
+		return false;
+	}
+
+	return true;
+};
 
 const options = [
 	{
@@ -65,7 +82,7 @@ const options = [
 		m: 2,
 		prefix: 'BTC'
 	}
-];
+].filter(filterOptionsFromArgs);
 
 options.forEach(options => {
 	console.log();
