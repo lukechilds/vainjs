@@ -1,0 +1,24 @@
+name: Node.js CI
+
+on: push
+
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm clean-install
+      - run: npm run bench
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm clean-install
+      - run: npm run test
+      - run: npm run coverage
