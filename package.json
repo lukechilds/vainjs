@@ -8,8 +8,8 @@
   },
   "scripts": {
     "bench": "node bench/index.js",
-    "test": "xo && nyc ava",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "test": "xo && c8 ava",
+    "coverage": "c8 report --all --reporter text --reporter html | coveralls"
   },
   "repository": {
     "type": "git",
@@ -29,8 +29,8 @@
   "homepage": "https://github.com/lukechilds/vainjs#readme",
   "devDependencies": {
     "ava": "^1.4.1",
+    "c8": "^10.1.2",
     "coveralls": "^3.0.3",
-    "nyc": "^14.1.0",
     "pretty-ms": "^5.0.0",
     "xo": "^0.24.0"
   },
