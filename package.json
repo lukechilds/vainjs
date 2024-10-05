@@ -9,7 +9,7 @@
   "scripts": {
     "bench": "node bench/index.js",
     "test": "xo && c8 ava",
-    "coverage": "c8 report --all --reporter text --reporter html | coveralls"
+    "coverage": "c8 report --all --reporter text --reporter html"
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,6 @@
   "devDependencies": {
     "ava": "^1.4.1",
     "c8": "^10.1.2",
-    "coveralls": "^3.0.3",
     "pretty-ms": "^5.0.0",
     "xo": "^0.24.0"
   },
